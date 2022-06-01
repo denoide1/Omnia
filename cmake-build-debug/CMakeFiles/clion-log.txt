@@ -1,0 +1,6 @@
+Visual Studio not found at: C:\Program Files (x86)\Microsoft Visual Studio\2019\Community Configure
+
+Cannot get compiler information:
+	Cannot load Visual C++ environment from C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat:
+	command [cmd.exe, /c, call, C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat, x86, &&, C:\Program Files\JetBrains\CLion 2020.1\jbr\bin\java, -cp, C:\Program Files\JetBrains\CLion 2020.1\lib\util.jar, com.intellij.util.ReadEnv, C:\Users\giam1\AppData\Local\Temp\intellij-cmd-env.1.tmp, ||, exit, /B, %ERRORLEVEL%]
+		exit code:-1073741502 text:0 out:

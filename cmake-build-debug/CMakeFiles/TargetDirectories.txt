@@ -1,0 +1,3 @@
+C:/Users/giam1/Desktop/Omnia/cmake-build-debug/CMakeFiles/Omnia.dir
+C:/Users/giam1/Desktop/Omnia/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/giam1/Desktop/Omnia/cmake-build-debug/CMakeFiles/rebuild_cache.dir
