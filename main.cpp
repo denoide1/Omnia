@@ -1,6 +1,10 @@
 #include <iostream>
+#include "omnia_tokenizer.h"
 
 int main(int argc, char *argv[]) {
-    std::cout << "Hello, World!" << std::endl;
+
+    tokenizer tokenizer;
+    tokenizer.tokenize("/Users/gianmarcorampulla/Desktop/testOmniaLexer.txt");
+
     return 0;
 }
