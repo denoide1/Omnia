@@ -48,15 +48,12 @@ public:
 private:
 
     void identify_peak() {
-        if (peak == ' ') return;
-        if (peak == '\n') lines++;
-
         if (isalpha(peak) || isnumber(peak)) {
             isCommandOrWord();
         }
-        else {
-            tokens.emplace_back(std::pair<std::string,std::string>(token_map[std::string(1,peak)],token_map[std::string(1,peak)]));
-        }
+        if (peak == ' ') return;
+        if (peak == '\n') { lines++; return; }
+        tokens.emplace_back(std::pair<std::string,std::string>(token_map[std::string(1,peak)],token_map[std::string(1,peak)]));
     }
 
     void isCommandOrWord() {
@@ -80,6 +77,8 @@ private:
         }
 
         if (peak == '\n') lines++;
+        //if (peak == '.') tokens.emplace_back(std::pair<std::string,std::string>(".","ENDPHRASE"));
+
 
         try {
             tokens.emplace_back(std::pair<std::string,std::string>(buffer,token_map.at(buffer)));
