@@ -16,27 +16,25 @@ struct tokenizer {
 
 public:
 
-    tokenizer() {
-        token_map.emplace(".", "ENDPHRASE");
-        token_map.emplace("s", "WORD");
-        token_map.emplace("n", "NUMBER");
-        token_map.emplace("scrivi", "WRITE");
+    tokenizer(std::string& token_m) {
+        parse_token_map(token_m);
     }
 
-    std::vector<std::string> tokenize(std::string file_path) {
+    std::vector<std::pair<std::string,std::string>> tokenize(std::string& file_path) {
         code.open(file_path);
         if (code.is_open()) {
             if(code.good()) {
-                while (!code.eof()) {
-                    code.get(peak);
+                while (code.get(peak)) {
                     identify_peak();
                 }
                 print_tokens();
+                code.close();
             }
         } else {
             if(!code.eof() && code.fail())
                 throw std::runtime_error("Can't read input file");
         }
+        return tokens;
     }
 
     void print_tokens(){
@@ -46,6 +44,30 @@ public:
     }
 
 private:
+
+    void parse_token_map(std::string& path) {
+
+        std::ifstream token_m;
+        token_m.open(path);
+        std::string tok,val;
+        char peak;
+        bool val_phase = false;
+
+        while (token_m.get(peak)) {
+           if(peak == '\n') {
+               token_map.emplace(tok, val);
+               val_phase = false;
+               tok.clear();
+               val.clear();
+           }
+           else if(peak == ',') val_phase = true;
+           else if(!val_phase) tok += peak;
+           else val += peak;
+        }
+        if(!tok.empty() && !val.empty())
+        token_map.emplace(tok, val);
+
+    }
 
     void identify_peak() {
         if (isalpha(peak) || isnumber(peak)) {
@@ -77,9 +99,6 @@ private:
         }
 
         if (peak == '\n') lines++;
-        //if (peak == '.') tokens.emplace_back(std::pair<std::string,std::string>(".","ENDPHRASE"));
-
-
         try {
             tokens.emplace_back(std::pair<std::string,std::string>(buffer,token_map.at(buffer)));
         } catch (std::exception& e) {

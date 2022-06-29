@@ -3,8 +3,12 @@
 
 int main(int argc, char *argv[]) {
 
-    tokenizer tokenizer;
-    tokenizer.tokenize("/Users/gianmarcorampulla/Desktop/testOmniaLexer.txt");
+    std::string test_path = "/Users/gianmarcorampulla/Desktop/testOmniaLexer.txt";
+    std::string token_map = "/Users/gianmarcorampulla/Desktop/testOmniaMap.txt";
+
+
+    tokenizer tokenizer(token_map);
+    tokenizer.tokenize(test_path);
 
     return 0;
 }
