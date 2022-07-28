@@ -15,93 +15,48 @@ public:
             this->tokens = tokens;
         }
 
-        int parse() {
-
-            int value = 0;
+        void parse() {
+            fetch();
             while (i < this->tokens.size()) {
-                fetch();
-                switch (next_token.first) {
-                    case "WRITE":
-                        value = write();
-                        break;
-                    case "WORD":
-                        value = -1;
-                        break;
-                    case "ENDPHRASE":
-                        value =  -1;
-                        break;
-                    case "NUMBER":
-                        value = -1;
-                        break;
-
+                if(next_token.second == "WRITE"){
+                    match("WRITE");
+                    write();
+                }
+                else {
+                    throw std::runtime_error("syntax error");
                 }
             }
-
-            return value;
-
         }
 
 private:
     std::vector<std::pair<std::string,std::string>> tokens;
     std::pair<std::string,std::string> next_token;
-    int i = 0;
+    int i = -1;
 
-    fetch() {
-        next_token = tokens[i];
+    void fetch() {
         i++;
+        next_token = tokens[i];
     }
 
-    write() {
-        fetch();
-        switch(next_token.first) {
+    void match(const std::string& tag) {
+        if(tag == tokens[i].second) fetch(); else throw std::runtime_error("syntax error");
+    }
 
-            case "WRITE":
-                return -1;
-            case "WORD":
-                return word();
-            case "NUMBER":
-                return number();
-            case "ENDPHRASE":
-                return -1;
-
+    void write() {
+;
+        if(next_token.second == "WORD"){
+            match("WORD");
+            match("ENDPHRASE");
+            return;
+        }
+        if(next_token.second == "NUMBER"){
+            match("NUMBER");
+            match("ENDPHRASE");
+            return;
         }
 
+        throw std::runtime_error("syntax error");
     }
-
-    number() {
-        fetch();
-        switch(next_token.first) {
-
-            case "WRITE":
-                return -1;
-            case "WORD":
-                return word();
-            case "NUMBER"
-                return number();
-            case "ENDPHRASE"
-                return 0;
-
-        }
-    }
-
-    word() {
-
-        fetch();
-        switch(next_token.first) {
-
-            case "WRITE":
-                return -1;
-            case "WORD":
-                return word();
-            case "NUMBER":
-                return number();
-            case "ENDPHRASE":
-                return 0;
-
-        }
-
-    }
-
 };
 
 #endif //OMNIA_OMNIA_PARSER_H

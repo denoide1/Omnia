@@ -1,5 +1,6 @@
 #include <iostream>
 #include "omnia_tokenizer.h"
+#include "omnia_parser.h"
 
 int main(int argc, char *argv[]) {
 
@@ -8,7 +9,8 @@ int main(int argc, char *argv[]) {
 
 
     tokenizer tokenizer(token_map);
-    tokenizer.tokenize(test_path);
+    parser parser(tokenizer.tokenize(test_path));
 
+    parser.parse();
     return 0;
 }
